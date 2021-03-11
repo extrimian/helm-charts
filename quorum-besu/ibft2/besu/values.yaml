@@ -45,7 +45,7 @@ validators:
 besuConfig:
   dataPath: "/data"
   genesisFilePath: "/etc/genesis/genesis.json"
-  logging: INFO
+  logging: ALL
   p2p:
     enabled: true
     host: "0.0.0.0"
