@@ -8,8 +8,8 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    namespace: monitoring
-  namespace: monitoring
+    namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   prometheus.yml: |-
 {{ .Files.Get "grafana-datasource.yml" | indent 4}}
@@ -25,8 +25,8 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    namespace: monitoring
-  namespace: monitoring
+    namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   dashboard.yml: |-
 {{ .Files.Get "grafana-dashboard-default.yml" | indent 4}}
@@ -42,8 +42,8 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    namespace: monitoring
-  namespace: monitoring
+    namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   besu.json: |-
 {{ .Files.Get "grafana-dashboard-besu.json" | indent 4}}
