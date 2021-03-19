@@ -11,7 +11,4 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   genesis.json: |-
-{{ .Files.Get "genesis.json" | indent 4}}
-
-
-
+{{ .Files.Get (printf "%s.json" .Values.genesisFileName) | indent 4 }}

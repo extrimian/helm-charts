@@ -8,6 +8,8 @@ image:
 
 namespace: besu
 
+genesisFileName: "genesis60199e9885cd79002a271722"
+
 # config specific to node-statefulset ie. replicas, storage etc
 node:
   replicaCount: 1
