@@ -11,7 +11,7 @@ metadata:
     namespace: {{ .Values.namespace }}
   namespace: {{ .Values.namespace }}
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: {{ template "besu.name" . }}
     release: {{ .Release.Name }}
