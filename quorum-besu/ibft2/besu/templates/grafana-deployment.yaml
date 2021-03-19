@@ -7,10 +7,10 @@ metadata:
     app: {{ template "besu.name" . }}
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
-    namespace: monitoring
+    namespace: {{ .Values.namespace }}
     heritage: {{ .Release.Service }}
     component: grafana
-  namespace: monitoring
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:

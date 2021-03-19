@@ -7,9 +7,9 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    namespace: monitoring
+    namespace: {{ .Values.namespace }}
     component: grafana
-  namespace: monitoring
+  namespace: {{ .Values.namespace }}
 spec:
   type: NodePort
   selector:
