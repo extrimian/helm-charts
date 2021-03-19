@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: prometheus
+  name: {{ template "besu.fullname" . }}-prometheus
 rules:
   - apiGroups: [""]
     resources:
@@ -23,17 +23,17 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: prometheus
+  name: {{ template "besu.fullname" . }}-prometheus
   namespace: {{ .Values.namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus
+  name: {{ template "besu.fullname" . }}-prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus
+  name: {{ template "besu.fullname" . }}-prometheus
 subjects:
   - kind: ServiceAccount
     name: prometheus
