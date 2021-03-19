@@ -67,7 +67,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
     spec:
-      serviceAccountName: prometheus
+      serviceAccountName: {{ template "besu.fullname" . }}-prometheus
       containers:
         - name: prometheus
           image: prom/prometheus:v2.11.1
