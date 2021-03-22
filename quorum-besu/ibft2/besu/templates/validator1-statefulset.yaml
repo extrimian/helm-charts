@@ -163,6 +163,12 @@ spec:
       - name: config-toml
         configMap:
           name: {{ template "besu.fullname" . }}-config-toml-configmap
-      - name: data
-        emptyDir:
-          sizeLimit: "{{ .Values.validators.pvcSizeLimit }}"
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "azurefile-premium"
+      resources:
+        requests:
+          storage: "{{ .Values.validators.pvcSizeLimit }}" 
