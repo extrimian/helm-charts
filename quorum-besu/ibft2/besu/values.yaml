@@ -13,7 +13,7 @@ genesisFileName: "genesis60199e9885cd79002a271722"
 # config specific to node-statefulset ie. replicas, storage etc
 node:
   replicaCount: 1
-  pvcSizeLimit: "1Gi"
+  pvcSizeLimit: "100Gi"
   pvcStorageClass: "standard"
   memRequest: "1024Mi"
   memLimit: "2048Mi"
@@ -21,7 +21,7 @@ node:
   cpuLimit: "500m"
 
 validators:
-  pvcSizeLimit: "1Gi"
+  pvcSizeLimit: "100Gi"
   pvcStorageClass: "standard"
   memRequest: "1024Mi"
   memLimit: "2048Mi"
