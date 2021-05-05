@@ -1,21 +1,19 @@
-{{- $nodeNumber := "node1" }}
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ $nodeNumber }}-sa
+  name: node-sa
   namespace: {{ .Values.namespace }}
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
-  name: {{ $nodeNumber }}-key-read-role
+  name: node-key-read-role
   namespace: {{ .Values.namespace }}
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  resourceNames: [ {{ template "besu.fullname" . }}-{{ $nodeNumber }}-key ]
+  resourceNames: [ {{ template "besu.fullname" . }}-node-key ]
   verbs: ["get"]
 - apiGroups: [""]
   resources: ["services"]
@@ -25,15 +23,15 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
-  name: {{ $nodeNumber }}-rb
+  name: node-rb
   namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ $nodeNumber }}-key-read-role
+  name: node-key-read-role
 subjects:
   - kind: ServiceAccount
-    name: {{ $nodeNumber }}-sa
+    name: node-sa
     namespace: {{ .Values.namespace }}
 
 
@@ -41,13 +39,13 @@ subjects:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ template "besu.fullname" . }}-{{ $nodeNumber }}
+  name: {{ template "besu.fullname" . }}-node
   labels:
     app: {{ template "besu.name" . }}
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    component: {{ $nodeNumber }}
+    component: node
     namespace: {{ .Values.namespace }}
   namespace: {{ .Values.namespace }}
 spec:
@@ -56,20 +54,20 @@ spec:
     matchLabels:
       app: {{ template "besu.name" . }}
       release: {{ .Release.Name }}
-      component: {{ $nodeNumber }}
-  serviceName: {{ template "besu.fullname" . }}-{{ $nodeNumber }}
+      component: node
+  serviceName: {{ template "besu.fullname" . }}-node
   template:
     metadata:
       labels:
         app: {{ template "besu.name" . }}
         release: {{ .Release.Name }}
-        component: {{ $nodeNumber }}
+        component: node
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9545"
         prometheus.io/path: "/metrics"
     spec:
-      serviceAccountName: {{ $nodeNumber }}-sa
+      serviceAccountName: node-sa
       initContainers:
       - name: init-bootnode
         image: byrnedo/alpine-curl
@@ -81,7 +79,7 @@ spec:
           - "-c"
           - "curl -X GET --connect-timeout 30 --max-time 10 --retry 6 --retry-delay 0 --retry-max-time 300 ${VALIDATOR1_SERVICE_HOST}:8545/liveness"
       containers:
-        - name: {{ $nodeNumber }}
+        - name: node
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           resources:
@@ -152,7 +150,7 @@ spec:
               exec /opt/besu/bin/besu \
                 --node-private-key-file=/secrets/key \
                 --config-file=/etc/besu/config.toml \
-                --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ template "besu.fullname" . }}-{{ $nodeNumber }}\
+                --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ template "besu.fullname" . }}-node\
                 --bootnodes=enode://${VALIDATOR1_PUBKEY}@{{ template "besu.name" . }}-validator1-0.{{ template "besu.name" . }}-validator1.{{ .Values.namespace }}.svc.cluster.local:30303,enode://${VALIDATOR2_PUBKEY}@{{ template "besu.name" . }}-validator2-0.{{ template "besu.name" . }}-validator2.{{ .Values.namespace }}.svc.cluster.local:30303
           livenessProbe:
             httpGet:
@@ -164,7 +162,7 @@ spec:
       volumes:
         - name: key
           secret:
-            secretName: {{ template "besu.fullname" . }}-{{ $nodeNumber }}-key
+            secretName: {{ template "besu.fullname" . }}-node-key
         - name: genesis-config
           configMap:
             name: {{ template "besu.fullname" . }}-genesis-configmap
