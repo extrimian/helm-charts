@@ -7,8 +7,8 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    namespace: monitoring
-  namespace: monitoring
+    namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
 data:
   prometheus.yml: |-
 {{ .Files.Get "prometheus.yml" | indent 4}}
