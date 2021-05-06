@@ -11,7 +11,7 @@ metadata:
     component: prometheus
   namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     component: prometheus
   ports:
