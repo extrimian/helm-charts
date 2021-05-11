@@ -20,6 +20,8 @@ nodes:
     privateKey: "0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f"
     publicKey: "0xce7edc292d7b747fab2f23584bbafaffde5c8ff17cf689969614441e0527b90015ea9fee96aed6d9c0fc2fbe0bd1883dee223b3200246ff1e21976bdbc9a0fc8"
 
+genesisFileName: "genesis60199e9885cd79002a271722"
+
 validators:
   pvcSizeLimit: "10Gi"
   pvcStorageClass: "standard"
@@ -34,6 +36,10 @@ validators:
   validator2:
     privateKey: "0xa53a0dea5e51a9e0735e331b336af65d60f516c7080a52da683f6fd96342be42"
     publicKey: "0xb2fba529681ea7f4619556753d40c8689b936fb1c621bc91f94d2938eb58c285d4911457ae4887b9c3bd593b2d608d319c6dc384d6acae2d043a4657029178d3"
+
+  validator3:
+    privateKey: "0x28021485044bf6870160f90b82ab6bbd14c691d4414140a63d047a7e3362c64e"
+    publicKey: "0x00b20ab6a385a2403d64637b3d93cb6d83215a08f29adb6feb4b8bf03387b734444e8b060f53150dea4b9b897823540d19918c13d6f57a5153d190b5fad7bf51"
 
 # common parameters to all nodes
 besuConfig:
