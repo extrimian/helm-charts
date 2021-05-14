@@ -20,7 +20,7 @@ nodes:
     privateKey: "0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f"
     publicKey: "0xce7edc292d7b747fab2f23584bbafaffde5c8ff17cf689969614441e0527b90015ea9fee96aed6d9c0fc2fbe0bd1883dee223b3200246ff1e21976bdbc9a0fc8"
 
-genesisFileName: "genesis60199e9885cd79002a271722"
+genesisFileName: "genesis"
 
 validators:
   pvcSizeLimit: "10Gi"
