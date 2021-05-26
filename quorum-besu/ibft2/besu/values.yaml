@@ -58,7 +58,7 @@ besuConfig:
     enabled: true
     host: "0.0.0.0"
     port: 8545
-    api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET"]'
+    api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "PERM"]'
     corsOrigins: '["all"]'
     authenticationEnabled: false
   ws:
