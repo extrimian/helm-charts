@@ -1,0 +1,21 @@
+{{- if .Values.besuConfig.permissions.nodes.enabled -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "besu.fullname" . }}-node-permissions-configmap
+  labels:
+    app: {{ template "besu.name" . }}
+    chart: {{ template "besu.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.namespace }}
+data:
+  nodes-allowlist.yml: |-
+    nodes-allowlist=[
+      "enode://ce7edc292d7b747fab2f23584bbafaffde5c8ff17cf689969614441e0527b90015ea9fee96aed6d9c0fc2fbe0bd1883dee223b3200246ff1e21976bdbc9a0fc8@10.244.0.1:30303",
+      "enode://6d884da1f241953450f7ff901acc581139476d036c02f957d7064516e08bb1937f2eb0bea3e6c428e442be04cec570983978109df12cc476f3cf7fed420792ed@besuj-validator1-0.besuj-validator1.besuj.svc.cluster.local:30303",
+      "enode://ce7edc292d7b747fab2f23584bbafaffde5c8ff17cf689969614441e0527b90015ea9fee96aed6d9c0fc2fbe0bd1883dee223b3200246ff1e21976bdbc9a0fc8@52.170.134.57:30303"
+    ]
+{{- end -}}

@@ -1,0 +1,28 @@
+{{- $validatorNumber := "validator1" }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-udp
+  labels:
+    app: {{ template "besu.name" . }}
+    chart: {{ template "besu.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ $validatorNumber }}
+    namespace: {{ .Values.namespace }}
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/release: "1.0.0"
+  namespace: {{ .Values.namespace }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ template "besu.name" . }}
+    release: {{ .Release.Name }}
+    component: {{ $validatorNumber }}
+  ports:
+    - name: discovery
+      port: {{ .Values.besuConfig.p2p.port }}
+      targetPort: discovery
+      protocol: UDP
+

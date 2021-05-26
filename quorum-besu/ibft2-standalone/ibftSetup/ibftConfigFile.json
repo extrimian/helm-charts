@@ -1,0 +1,33 @@
+{
+    "genesis": {
+        "config": {
+            "chainId": 2018,
+            "constantinoplefixblock": 0,
+            "ibft2": {
+                "blockperiodseconds": 2,
+                "epochlength": 30000,
+                "requesttimeoutseconds": 10
+            }
+        },
+        "nonce": "0x0",
+        "timestamp": "0x58ee40ba",
+        "gasLimit": "0xf7b760",
+        "difficulty": "0x1",
+        "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "60757c93e1fabe3558fa23a6bbe3be3cf5716eb2": {
+                "privateKey": "a024b087316799ab86aac0c7e0711bbb49132b30fb8ef0165dec4029d8ad10a7",
+                "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+                "balance": "90000000000000000000000"
+            }
+        },
+        "extraData": "0xf87ea00000000000000000000000000000000000000000000000000000000000000000f85494eaf3a9dd7fee61048fbffad07c983ddb48557dfe946df129a7479334546a99123ac042c4a204712fce9437dabbb8f89139c9d6a778e8f7a8fe5ba291f3799474827b20d83a14c8a58e6e17119c9ac8c698adbb808400000000c0"
+    },
+    "blockchain": {
+        "nodes": {
+            "generate": true,
+            "count": 4
+        }
+    }
+}
