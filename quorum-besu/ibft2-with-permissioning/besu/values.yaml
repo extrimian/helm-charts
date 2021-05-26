@@ -56,7 +56,7 @@ besuConfig:
     enabled: true
     host: "0.0.0.0"
     port: 8545
-    api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET"]'
+    api: '["DEBUG","ETH", "ADMIN", "WEB3", "IBFT", "NET", "PERM"]'
     corsOrigins: '["all"]'
     authenticationEnabled: false
   ws:
@@ -93,7 +93,7 @@ besuConfig:
     enabled: true
     nodes:
       enabled: true
-      filePath: "/etc/permissions"
+      filePath: "/data/permissions"
     nodesContract:
       enabled: false
       address: "0x0000000000000000000000000000000000001234"

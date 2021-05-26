@@ -21,3 +21,4 @@ data:
   {{ else }}
   validator2PubKey: {{ .Values.validators.validator2.publicKey | quote }}
   {{ end }}
+

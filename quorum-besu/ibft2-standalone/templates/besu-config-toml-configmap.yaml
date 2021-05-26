@@ -35,6 +35,8 @@ data:
     tx-pool-retention-hours={{ .Values.besuConfig.txPool.retentionHours }}
     tx-pool-max-size={{ .Values.besuConfig.txPool.maxSize }}
 
+    nat-method={{ .Values.besuConfig.natMethod | quote }}
+
     {{ if  .Values.besuConfig.p2p.enabled -}}
     # P2P network
     p2p-enabled={{ .Values.besuConfig.p2p.enabled }}

@@ -9,6 +9,11 @@ image:
 namespace: besu
 
 # config specific to node-statefulset ie. replicas, storage etc
+
+network:
+  bootnode:
+    enode: "enode://ce7edc292d7b747fab2f23584bbafaffde5c8ff17cf689969614441e0527b90015ea9fee96aed6d9c0fc2fbe0bd1883dee223b3200246ff1e21976bdbc9a0fc8@52.170.134.57:30303"    
+    
 nodes:
   pvcSizeLimit: "10Gi"
   pvcStorageClass: "standard"
@@ -46,6 +51,7 @@ besuConfig:
   dataPath: "/data"
   genesisFilePath: "/etc/genesis/genesis.json"
   logging: ALL
+  natMethod: KUBERNETES
   p2p:
     enabled: true
     host: "0.0.0.0"
