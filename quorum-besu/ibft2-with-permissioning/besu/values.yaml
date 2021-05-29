@@ -95,10 +95,11 @@ besuConfig:
       enabled: true
       filePath: "/data/permissions"
     nodesContract:
-      enabled: false
-      address: "0x0000000000000000000000000000000000001234"
+      enabled: true
+      address: "0x0000000000000000000000000000000000008888"
     accounts:
-      enabled: false
+      enabled: true
+      address: "0x0000000000000000000000000000000000009999"
 
 
 
