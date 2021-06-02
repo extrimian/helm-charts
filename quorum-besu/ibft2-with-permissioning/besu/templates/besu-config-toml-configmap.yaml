@@ -77,11 +77,6 @@ data:
 
     {{ if  .Values.besuConfig.permissions.enabled -}}
     # Permissioning
-    permissions-nodes-config-file-enabled={{ .Values.besuConfig.permissions.nodes.enabled }}
-    permissions-nodes-config-file="{{ .Values.besuConfig.permissions.nodes.filePath }}/nodes-allowlist.yml"
-    permissions-accounts-config-file-enabled={{ .Values.besuConfig.permissions.accounts.enabled }}
-    permissions-accounts-config-file="{{ .Values.besuConfig.permissions.nodes.filePath }}/accounts-allowlist.yml"
-    
     permissions-accounts-contract-enabled={{ .Values.besuConfig.permissions.accounts.enabled }}
     permissions-accounts-contract-address={{ .Values.besuConfig.permissions.accounts.address | quote }}
     
