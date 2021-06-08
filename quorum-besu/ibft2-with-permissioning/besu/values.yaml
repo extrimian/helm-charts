@@ -91,9 +91,9 @@ besuConfig:
     precompiledAddress: 9
   permissions:
     enabled: true
-    nodes:
+    configFile:
       enabled: true
-      filePath: "/data/permissions"
+      path: "/data/permissions"
     nodesContract:
       enabled: false
       address: "0x0000000000000000000000000000000000009999"
