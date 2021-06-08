@@ -91,6 +91,7 @@ besuConfig:
     precompiledAddress: 9
   permissions:
     enabled: true
+    filePath: "/data/permissions"
     configFile:
       enabled: true
       path: "/data/permissions"

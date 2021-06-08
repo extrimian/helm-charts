@@ -118,9 +118,9 @@ spec:
             readOnly: true
           - name: config-toml
             mountPath: /etc/besu
-          {{- if .Values.besuConfig.permissions.nodes.enabled }}
+          {{- if .Values.besuConfig.permissions.enabled }}
           - name: node-permissions
-            mountPath: {{ .Values.besuConfig.permissions.nodes.filePath }}
+            mountPath: {{ .Values.besuConfig.permissions.filePath }}
           {{- end }}     
           - name: data
             mountPath: /data
@@ -172,7 +172,7 @@ spec:
       - name: config-toml
         configMap:
           name: {{ template "besu.fullname" . }}-config-toml-configmap
-      {{- if .Values.besuConfig.permissions.nodes.enabled }}
+      {{- if .Values.besuConfig.permissions.enabled }}
       - name: node-permissions
         configMap:
           name: {{ template "besu.fullname" . }}-node-permissions-configmap

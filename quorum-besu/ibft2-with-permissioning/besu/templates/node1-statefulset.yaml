@@ -133,9 +133,9 @@ spec:
               readOnly: true
             - name: config-toml
               mountPath: /etc/besu
-            {{- if .Values.besuConfig.permissions.nodes.enabled }}
+            {{- if .Values.besuConfig.permissions.enabled }}
             - name: node-permissions
-              mountPath: {{ .Values.besuConfig.permissions.nodes.filePath }}
+              mountPath: {{ .Values.besuConfig.permissions.filePath }}
             {{- end }}    
             - name: volume-pvc
               mountPath: /data              
@@ -191,7 +191,7 @@ spec:
         - name: volume-pvc
           persistentVolumeClaim:
             claimName: pvc-node
-        {{- if .Values.besuConfig.permissions.nodes.enabled }}
+        {{- if .Values.besuConfig.permissions.enabled }}
         - name: node-permissions
           configMap:
             name: {{ template "besu.fullname" . }}-node-permissions-configmap

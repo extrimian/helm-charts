@@ -1,4 +1,4 @@
-{{- if .Values.besuConfig.permissions.nodes.enabled -}}
+{{- if .Values.besuConfig.permissions.enabled -}}
 ---
 apiVersion: v1
 kind: ConfigMap
