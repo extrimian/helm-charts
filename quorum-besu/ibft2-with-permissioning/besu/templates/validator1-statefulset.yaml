@@ -20,8 +20,22 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list"]
----
 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-validator1
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: azurefile-premium
+  resources:
+    requests:
+      storage: "{{ .Values.validators.pvcSizeLimit }}"
+
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
@@ -113,7 +127,7 @@ spec:
           - name: node-permissions
             mountPath: {{ .Values.besuConfig.permissions.nodes.filePath }}
           {{- end }}            
-          - name: data
+          - name: volume-pvc-1
             mountPath: /data
         ports:
           - name: json-rpc
@@ -163,11 +177,11 @@ spec:
       - name: config-toml
         configMap:
           name: {{ template "besu.fullname" . }}-config-toml-configmap
+      - name: volume-pvc-1
+        persistentVolumeClaim:
+          claimName: pvc-validator1               
       {{- if .Values.besuConfig.permissions.nodes.enabled }}
       - name: node-permissions
         configMap:
           name: {{ template "besu.fullname" . }}-node-permissions-configmap
-      {{- end }}     
-      - name: data
-        emptyDir:
-          sizeLimit: "{{ .Values.validators.pvcSizeLimit }}"
+      {{- end }}
