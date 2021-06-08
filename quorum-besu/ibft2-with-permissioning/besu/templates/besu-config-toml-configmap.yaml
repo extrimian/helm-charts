@@ -83,6 +83,8 @@ data:
     permissions-accounts-config-file="{{ .Values.besuConfig.permissions.nodes.filePath }}/accounts-allowlist.yml"
     permissions-nodes-contract-enabled={{ .Values.besuConfig.permissions.nodesContract.enabled }}
     permissions-nodes-contract-address={{ .Values.besuConfig.permissions.nodesContract.address | quote }}
+    permissions-accounts-contract-enabled={{ .Values.besuConfig.permissions.accounts.enabled }}
+    permissions-accounts-contract-address={{ .Values.besuConfig.permissions.accounts.address | quote }}
     {{ end }}
 
     {{ if  .Values.besuConfig.privacy.enabled -}}

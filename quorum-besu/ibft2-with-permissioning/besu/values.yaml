@@ -23,7 +23,7 @@ nodes:
 genesisFileName: "genesis"
 
 validators:
-  pvcSizeLimit: "10Gi"
+  pvcSizeLimit: "100Gi"
   pvcStorageClass: "standard"
   memRequest: "1024Mi"
   memLimit: "2048Mi"
@@ -96,9 +96,10 @@ besuConfig:
       filePath: "/data/permissions"
     nodesContract:
       enabled: false
-      address: "0x0000000000000000000000000000000000001234"
+      address: "0x0000000000000000000000000000000000009999"
     accounts:
       enabled: false
+      address: "0x0000000000000000000000000000000000008888"
 
 
 
