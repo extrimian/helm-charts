@@ -36,6 +36,19 @@ subjects:
     name: {{ $nodeNumber }}-sa
     namespace: {{ .Values.namespace }}
 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-node
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: azurefile-premium
+  resources:
+    requests:
+      storage: "{{ .Values.validators.pvcSizeLimit }}"
 
 ---
 apiVersion: apps/v1
@@ -123,7 +136,7 @@ spec:
             - name: node-permissions
               mountPath: {{ .Values.besuConfig.permissions.nodes.filePath }}
             {{- end }}    
-            - name: data
+            - name: volume-pvc
               mountPath: /data
           ports:
             - name: json-rpc
@@ -174,6 +187,9 @@ spec:
         - name: config-toml
           configMap:
             name: {{ template "besu.fullname" . }}-config-toml-configmap
+        - name: volume-pvc
+          persistentVolumeClaim:
+            claimName: pvc-node              
         {{- if .Values.besuConfig.permissions.nodes.enabled }}
         - name: node-permissions
           configMap:
