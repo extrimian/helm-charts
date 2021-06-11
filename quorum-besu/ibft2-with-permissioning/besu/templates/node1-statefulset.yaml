@@ -10,7 +10,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: {{ template "besu.fullname" . }}-key-read-role
+  name: {{ template "besu.fullname" . }}-{{ $nodeNumber }}-key-read-role
   namespace: {{ .Values.namespace }}
 rules:
 - apiGroups: [""]
@@ -20,20 +20,6 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list"]
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-node
-  namespace: {{ .Values.namespace }}
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: azurefile-premium
-  resources:
-    requests:
-      storage: "{{ .Values.validators.pvcSizeLimit }}"
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -49,6 +35,20 @@ subjects:
 - kind: ServiceAccount
   name: {{ template "besu.fullname" . }}-{{ $nodeNumber }}-li-sa
   namespace: {{ .Values.namespace }}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-node
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: azurefile-premium
+  resources:
+    requests:
+      storage: "{{ .Values.validators.pvcSizeLimit }}"
 
 ---
 apiVersion: apps/v1
@@ -165,7 +165,7 @@ spec:
               exec /opt/besu/bin/besu \
                 --node-private-key-file=/secrets/key \
                 --config-file=/etc/besu/config.toml \
-                --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ template "besu.fullname" . }}-{{ $nodeNumber }}\
+                --Xdns-enabled=true --Xdns-update-enabled=true --Xnat-kube-service-name={{ template "besu.fullname" . }}-{{ $nodeNumber }}-tcp\
                 --bootnodes=enode://${VALIDATOR1_PUBKEY}@{{ template "besu.fullname" . }}-validator1-0.{{ template "besu.fullname" . }}-validator1.{{ .Values.namespace }}.svc.cluster.local:30303,enode://${VALIDATOR2_PUBKEY}@{{ template "besu.fullname" . }}-validator2-0.{{ template "besu.fullname" . }}-validator2.{{ .Values.namespace }}.svc.cluster.local:30303
           livenessProbe:
             httpGet:
