@@ -3,14 +3,14 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ $validatorNumber }}-sa
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-li-sa
   namespace: {{ .Values.namespace }}
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: {{ $validatorNumber }}-key-read-role
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-key-read-role
   namespace: {{ .Values.namespace }}
 rules:
 - apiGroups: [""]
@@ -20,21 +20,21 @@ rules:
 - apiGroups: [""]
   resources: ["services"]
   verbs: ["get", "list"]
----
 
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: {{ $validatorNumber }}-rb
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-rb
   namespace: {{ .Values.namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: {{ $validatorNumber }}-key-read-role
+  kind: ClusterRole
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-key-read-role
 subjects:
-  - kind: ServiceAccount
-    name: {{ $validatorNumber }}-sa
-    namespace: {{ .Values.namespace }}
+- kind: ServiceAccount
+  name: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-li-sa
+  namespace: {{ .Values.namespace }}
 
 ---
 apiVersion: v1
@@ -82,7 +82,7 @@ spec:
         prometheus.io/port: "9545"
         prometheus.io/path: "/metrics"
     spec:
-      serviceAccountName: {{ $validatorNumber }}-sa
+      serviceAccountName: {{ template "besu.fullname" . }}-{{ $validatorNumber }}-li-sa
       initContainers:
       - name: init-bootnode
         image: byrnedo/alpine-curl

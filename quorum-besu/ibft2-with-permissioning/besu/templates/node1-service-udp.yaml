@@ -9,7 +9,7 @@ metadata:
     chart: {{ template "besu.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    component: {{ $nodeNumber }}
+    component: {{ $nodeNumber }}-udp
     namespace: {{ .Values.namespace }}
   namespace: {{ .Values.namespace }}
 spec:
