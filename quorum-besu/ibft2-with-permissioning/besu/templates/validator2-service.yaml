@@ -15,7 +15,7 @@ metadata:
     app.kubernetes.io/release: "1.0.0"
   namespace: {{ .Values.namespace }}
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: {{ template "besu.name" . }}
     release: {{ .Release.Name }}
@@ -37,7 +37,3 @@ spec:
       port: {{ .Values.besuConfig.p2p.port }}
       targetPort: rlpx
       protocol: TCP
-    - name: discovery
-      port: {{ .Values.besuConfig.p2p.port }}
-      targetPort: discovery
-      protocol: UDP
